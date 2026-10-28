@@ -41,7 +41,7 @@
     .demo-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 1.5rem;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }
@@ -57,11 +57,12 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: center;
       gap: 1rem;
-      padding: 1.25rem;
+      padding: 1.5rem;
       background: #f1f5f9;
-      border-radius: 8px;
-      min-height: 3rem;
+      border-radius: 12px;
+      min-height: 4rem;
     }
 
     .dark-preview {
@@ -73,7 +74,7 @@
       background: #1e293b;
       color: #f8fafc;
       padding: 0.75rem 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: monospace;
       font-size: 0.85rem;
       overflow-x: auto;
@@ -84,7 +85,7 @@
 <body>
 
   <h1>Attribution Badge Demo</h1>
-  <p class="subtitle">Interactive demonstration of the pill-based attribution badge web component.</p>
+  <p class="subtitle">Aesthetic pill badges featuring centered content, logo support, and scannable inline QR codes.</p>
 
   <div class="demo-grid">
 
@@ -101,9 +102,9 @@
 &lt;attribution-badge text="Built with ❤️ using Vite"&gt;&lt;/attribution-badge&gt;</pre>
     </div>
 
-    <!-- 2. Clickable Links with QR Code Popover -->
+    <!-- 2. Clickable Links with Inline Scannable QR Code -->
     <div class="demo-card">
-      <h3>2. Clickable Badges with QR Code</h3>
+      <h3>2. Scannable Inline QR Codes</h3>
       <div class="demo-preview">
         <attribution-badge prefix="Powered by" label="GitHub" href="https://github.com"></attribution-badge>
         <attribution-badge prefix="Created by" label="OpenAI" href="https://openai.com"></attribution-badge>
@@ -111,7 +112,7 @@
       <pre class="code-block">&lt;attribution-badge prefix="Powered by" label="GitHub" href="https://github.com"&gt;&lt;/attribution-badge&gt;</pre>
     </div>
 
-    <!-- 3. Themes -->
+    <!-- 3. Preset Themes -->
     <div class="demo-card">
       <h3>3. Preset Themes (Light, Dark, Brand)</h3>
       <div class="demo-preview dark-preview">
@@ -134,7 +135,7 @@
       <pre class="code-block">&lt;attribution-badge color="#0284c7" bg-color="#e0f2fe" prefix="Designed by" label="Tailwind" href="..."&gt;&lt;/attribution-badge&gt;</pre>
     </div>
 
-    <!-- 5. Logo Image and Slotted SVG Logo -->
+    <!-- 5. Logos (Image & Slotted SVG) -->
     <div class="demo-card">
       <h3>5. Logos (Image & Slotted SVG)</h3>
       <div class="demo-preview">
@@ -145,11 +146,7 @@
           </svg>
         </attribution-badge>
       </div>
-      <pre class="code-block">&lt;attribution-badge logo="https://vitejs.dev/logo.svg" prefix="Powered by" label="Vite" href="..."&gt;&lt;/attribution-badge&gt;
-
-&lt;attribution-badge prefix="Starred on" label="GitHub" href="..."&gt;
-  &lt;svg slot="logo" ...&gt;&lt;/svg&gt;
-&lt;/attribution-badge&gt;</pre>
+      <pre class="code-block">&lt;attribution-badge logo="https://vitejs.dev/logo.svg" prefix="Powered by" label="Vite" href="..."&gt;&lt;/attribution-badge&gt;</pre>
     </div>
 
   </div>

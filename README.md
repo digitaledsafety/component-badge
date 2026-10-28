@@ -1,13 +1,13 @@
 # Attribution Badge Web Component
 
-A lightweight, customizable pill-based Web Component for attribution (e.g. "Powered by Acme", "Created by John Doe"). Features built-in support for company/user logos, inline QR code generation popovers, link targets, and multiple color themes.
+A modern, customizable pill-based Web Component for attribution (e.g. "Powered by Acme", "Created by John Doe"). Features taller aesthetic pill design, centered content, built-in support for company/user logos, scannable inline QR code generation, and color themes.
 
 ## Features
 
-- **Pill Badge Design:** Sleek, modern pill-shaped badge component.
-- **Flexible Attribution Text:** Supports separate `prefix` and `label` (e.g. `prefix="Powered by" label="Acme"`) or full custom `text`.
+- **Aesthetic Pill Design:** Taller, modern pill-shaped badge component with centered text layout.
+- **Scannable Inline QR Code:** Automatically generates a high-contrast inline QR code from `href` for instant camera scanning.
+- **Flexible Attribution Text:** Supports separate `prefix` and `label` (e.g. `prefix="Powered by"` `label="Acme"`) or custom single `text`.
 - **Logos & Custom Icons:** Supports image URLs via `logo` attribute or custom HTML/SVGs via the `logo` slot.
-- **Inline QR Code Generator:** Automatically generates a QR code popover from `href` with zero external dependencies.
 - **Themes & Customization:** Built-in `light`, `dark`, and `brand` themes plus support for custom text and background colors (`color`, `bg-color`).
 - **Standard Standards:** Built with Shadow DOM, `adoptedStyleSheets`, and responsive styling.
 
@@ -49,13 +49,13 @@ customElements.define('custom-attribution', AttributionBadge);
 | `prefix` | `string` | `"Powered by"` | The prefix text before label (e.g., "Powered by", "Created by"). |
 | `label` | `string` | `""` | Primary target name (e.g., "Acme Corp"). |
 | `text` | `string` | `undefined` | Overrides both `prefix` and `label` with a single custom text string. |
-| `href` | `string` | `""` | Target URL. Makes the pill clickable and enables QR code generation. |
+| `href` | `string` | `""` | Target URL. Makes the pill clickable and embeds an inline scannable QR code. |
 | `target` | `string` | `"_blank"` | Link target attribute (e.g. `_blank`, `_self`). |
 | `logo` | `string` | `""` | Image URL for the logo icon on the left. |
 | `theme` | `string` | `"light"` | Preset color theme: `"light"`, `"dark"`, or `"brand"`. |
 | `color` | `string` | `undefined` | Custom CSS color for text/accents (e.g., `#e11d48`). |
 | `bg-color` | `string` | `undefined` | Custom CSS background color for the badge (e.g., `#ffe4e6`). |
-| `show-qr` | `boolean` | `"true"` | Set to `"false"` to hide the QR code button even when `href` is present. |
+| `show-qr` | `boolean` | `"true"` | Set to `"false"` to hide the inline QR code even when `href` is present. |
 
 ### Slots
 
@@ -90,16 +90,6 @@ customElements.define('custom-attribution', AttributionBadge);
   </svg>
 </attribution-badge>
 ```
-
----
-
-## Available Scripts
-
-- `npm run dev`: Start local dev server.
-- `npm run build`: Compile distribution bundles in `dist/`.
-- `npm run test`: Run unit tests with Vitest.
-- `npm run lint`: Run ESLint check.
-- `npm run format`: Format code with Prettier.
 
 ---
 

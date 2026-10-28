@@ -4,16 +4,18 @@ const styles = new CSSStyleSheet();
 styles.replaceSync(`
   :host {
     --badge-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --badge-bg: #f8fafc;
+    --badge-bg: #ffffff;
     --badge-color: #0f172a;
     --badge-border: #e2e8f0;
-    --badge-hover-bg: #f1f5f9;
+    --badge-hover-bg: #f8fafc;
     --badge-accent: #2563eb;
     --badge-radius: 9999px;
-    --badge-font-size: 0.875rem;
-    --badge-padding: 0.375rem 0.75rem;
-    --badge-gap: 0.5rem;
-    --badge-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --badge-font-size: 0.9375rem;
+    --badge-padding: 0.625rem 1.25rem;
+    --badge-gap: 0.75rem;
+    --badge-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+    --badge-qr-size: 42px;
+    --badge-qr-bg: #ffffff;
 
     display: inline-block;
     position: relative;
@@ -21,15 +23,17 @@ styles.replaceSync(`
     font-size: var(--badge-font-size);
     box-sizing: border-box;
     line-height: 1;
+    max-width: 100%;
   }
 
   :host([theme="dark"]) {
     --badge-bg: #0f172a;
     --badge-color: #f8fafc;
-    --badge-border: #334155;
+    --badge-border: #1e293b;
     --badge-hover-bg: #1e293b;
     --badge-accent: #38bdf8;
-    --badge-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    --badge-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+    --badge-qr-bg: #ffffff;
   }
 
   :host([theme="brand"]) {
@@ -37,8 +41,9 @@ styles.replaceSync(`
     --badge-color: #ffffff;
     --badge-border: #4338ca;
     --badge-hover-bg: #4338ca;
-    --badge-accent: #a5b4fc;
-    --badge-shadow: 0 2px 4px 0 rgba(79, 70, 229, 0.25);
+    --badge-accent: #818cf8;
+    --badge-shadow: 0 4px 14px -3px rgba(79, 70, 229, 0.35);
+    --badge-qr-bg: #ffffff;
   }
 
   *, *::before, *::after {
@@ -56,11 +61,15 @@ styles.replaceSync(`
     border-radius: var(--badge-radius);
     padding: var(--badge-padding);
     box-shadow: var(--badge-shadow);
-    transition: all 0.2s ease-in-out;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     line-height: 1;
     user-select: none;
     position: relative;
+    max-width: 100%;
+    min-height: 52px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   a.badge-container {
@@ -70,20 +79,31 @@ styles.replaceSync(`
   a.badge-container:hover {
     background-color: var(--badge-hover-bg);
     border-color: var(--badge-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.12);
+  }
+
+  a.badge-container:active {
+    transform: translateY(0);
+    box-shadow: var(--badge-shadow);
   }
 
   a.badge-container:focus-visible {
     outline: 2px solid var(--badge-accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 
   .badge-logo-wrapper {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
+  }
+
+  .badge-logo-wrapper.hidden {
+    display: none;
   }
 
   .badge-logo-img {
@@ -95,8 +115,8 @@ styles.replaceSync(`
   }
 
   ::slotted([slot="logo"]) {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     object-fit: contain;
     display: block;
   }
@@ -104,110 +124,71 @@ styles.replaceSync(`
   .badge-content {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    justify-content: center;
+    gap: 0.35rem;
     white-space: nowrap;
     line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    text-align: center;
   }
 
   .badge-prefix {
-    opacity: 0.8;
+    opacity: 0.75;
     font-weight: 400;
     line-height: 1;
     display: inline-block;
+    flex-shrink: 0;
+    letter-spacing: -0.01em;
   }
 
   .badge-label {
     font-weight: 600;
     line-height: 1;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.01em;
   }
 
-  .qr-toggle-btn {
+  /* Inline Scannable QR Code Frame */
+  .badge-qr-inline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
-    border: none;
-    color: currentColor;
-    opacity: 0.7;
-    padding: 0;
-    margin-left: 0.125rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    background-color: var(--badge-qr-bg);
+    padding: 3px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
     flex-shrink: 0;
-    width: 1rem;
-    height: 1rem;
-    line-height: 1;
+    width: var(--badge-qr-size);
+    height: var(--badge-qr-size);
+    transition: transform 0.2s ease;
   }
 
-  .qr-toggle-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  .qr-toggle-btn:focus-visible {
-    outline: 2px solid var(--badge-accent);
-  }
-
-  .qr-icon {
-    width: 1rem;
-    height: 1rem;
-    fill: currentColor;
+  .badge-qr-inline svg {
     display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
   }
 
-  /* QR Popover Modal / Tooltip */
-  .qr-popover {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%) scale(0.95);
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 0.875rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  a.badge-container:hover .badge-qr-inline {
+    transform: scale(1.05);
   }
 
-  .qr-popover.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) scale(1);
-  }
-
-  .qr-popover-title {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #334155;
-    text-align: center;
-    max-width: 160px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 1.25;
-  }
-
-  .qr-popover-arrow {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #ffffff;
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    :host {
+      --badge-padding: 0.5rem 1rem;
+      --badge-font-size: 0.875rem;
+      --badge-gap: 0.5rem;
+      --badge-qr-size: 38px;
+    }
+    .badge-container {
+      min-height: 46px;
+    }
   }
 `);
 
@@ -218,7 +199,7 @@ export class AttributionBadge extends HTMLElement {
 
   constructor() {
     super();
-    this._qrOpen = false;
+    this._hasSlottedLogo = false;
     const shadow = this.attachShadow({ mode: 'open' });
 
     if (shadow.adoptedStyleSheets) {
@@ -232,16 +213,11 @@ export class AttributionBadge extends HTMLElement {
     this._wrapper = document.createElement('div');
     shadow.appendChild(this._wrapper);
 
-    this._onDocumentClick = this._onDocumentClick.bind(this);
+    this._onSlotChange = this._onSlotChange.bind(this);
   }
 
   connectedCallback() {
     this._render();
-    document.addEventListener('click', this._onDocumentClick);
-  }
-
-  disconnectedCallback() {
-    document.removeEventListener('click', this._onDocumentClick);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -314,27 +290,20 @@ export class AttributionBadge extends HTMLElement {
     else this.setAttribute('theme', val);
   }
 
-  _onDocumentClick(e) {
-    if (this._qrOpen && !this.contains(e.target) && !e.composedPath().includes(this.shadowRoot)) {
-      this._qrOpen = false;
-      this._updateQRPopover();
-    }
+  _onSlotChange(e) {
+    const slot = e.target;
+    this._hasSlottedLogo = slot.assignedElements().length > 0;
+    this._updateLogoVisibility();
   }
 
-  _toggleQR(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    this._qrOpen = !this._qrOpen;
-    this._updateQRPopover();
-  }
-
-  _updateQRPopover() {
-    const popover = this.shadowRoot.querySelector('.qr-popover');
-    if (popover) {
-      if (this._qrOpen) {
-        popover.classList.add('open');
+  _updateLogoVisibility() {
+    const wrapper = this.shadowRoot.querySelector('.badge-logo-wrapper');
+    if (wrapper) {
+      const show = Boolean(this.logo) || this._hasSlottedLogo;
+      if (show) {
+        wrapper.classList.remove('hidden');
       } else {
-        popover.classList.remove('open');
+        wrapper.classList.add('hidden');
       }
     }
   }
@@ -371,10 +340,11 @@ export class AttributionBadge extends HTMLElement {
 
     const logoSrc = this.logo;
     const hasQr = isLink && this.getAttribute('show-qr') !== 'false';
+    const showLogo = Boolean(logoSrc) || this._hasSlottedLogo;
 
     let html = `
       <${tag} class="badge-container" ${isLink ? `href="${href}" target="${this.target}" rel="noopener noreferrer"` : ''}>
-        <div class="badge-logo-wrapper">
+        <div class="badge-logo-wrapper ${showLogo ? '' : 'hidden'}">
           <slot name="logo">
             ${logoSrc ? `<img class="badge-logo-img" src="${logoSrc}" alt="" />` : ''}
           </slot>
@@ -384,33 +354,18 @@ export class AttributionBadge extends HTMLElement {
           ${labelText ? `<span class="badge-label">${labelText}</span>` : ''}
         </div>
         ${hasQr ? `
-          <button type="button" class="qr-toggle-btn" aria-label="Show QR Code" title="Scan QR Code">
-            <svg class="qr-icon" viewBox="0 0 24 24">
-              <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm3 3h3v5h-2v-3h-1v-2zm-3 2h2v3h-2v-3zm-2-2h2v2h-2v-2zm0 3h2v2h-2v-2z"/>
-            </svg>
-          </button>
+          <div class="badge-qr-inline" title="Scan QR Code to visit ${href}">
+            ${generateQRSVG(href, { size: 100, quietZone: 1 })}
+          </div>
         ` : ''}
       </${tag}>
     `;
 
-    if (hasQr) {
-      const qrSvg = generateQRSVG(href, { size: 140 });
-      html += `
-        <div class="qr-popover ${this._qrOpen ? 'open' : ''}">
-          <div class="qr-popover-title">${labelText || href}</div>
-          ${qrSvg}
-          <div class="qr-popover-arrow"></div>
-        </div>
-      `;
-    }
-
     this._wrapper.innerHTML = html;
 
-    if (hasQr) {
-      const qrBtn = this._wrapper.querySelector('.qr-toggle-btn');
-      if (qrBtn) {
-        qrBtn.addEventListener('click', (e) => this._toggleQR(e));
-      }
+    const logoSlot = this._wrapper.querySelector('slot[name="logo"]');
+    if (logoSlot) {
+      logoSlot.addEventListener('slotchange', this._onSlotChange);
     }
   }
 }

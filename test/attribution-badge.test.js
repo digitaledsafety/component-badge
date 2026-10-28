@@ -107,37 +107,26 @@ describe('AttributionBadge Web Component', () => {
     expect(badge.style.getPropertyValue('--badge-bg')).toBe('#ffff00');
   });
 
-  it('renders QR code toggle button and generates QR SVG when href is present', () => {
+  it('renders scannable inline QR code SVG when href is present', () => {
     const badge = document.createElement('attribution-badge');
     badge.setAttribute('href', 'https://example.com');
     badge.setAttribute('label', 'Example');
     document.body.appendChild(badge);
 
-    const qrBtn = badge.shadowRoot.querySelector('.qr-toggle-btn');
-    expect(qrBtn).not.toBeNull();
+    const inlineQr = badge.shadowRoot.querySelector('.badge-qr-inline');
+    expect(inlineQr).not.toBeNull();
 
-    const popover = badge.shadowRoot.querySelector('.qr-popover');
-    expect(popover).not.toBeNull();
-    expect(popover.classList.contains('open')).toBe(false);
-
-    const qrSvg = popover.querySelector('svg');
+    const qrSvg = inlineQr.querySelector('svg');
     expect(qrSvg).not.toBeNull();
   });
 
-  it('toggles QR code popover when QR button is clicked', () => {
+  it('hides QR code when show-qr is false', () => {
     const badge = document.createElement('attribution-badge');
     badge.setAttribute('href', 'https://example.com');
+    badge.setAttribute('show-qr', 'false');
     document.body.appendChild(badge);
 
-    const qrBtn = badge.shadowRoot.querySelector('.qr-toggle-btn');
-    const popover = badge.shadowRoot.querySelector('.qr-popover');
-
-    expect(popover.classList.contains('open')).toBe(false);
-
-    qrBtn.click();
-    expect(popover.classList.contains('open')).toBe(true);
-
-    qrBtn.click();
-    expect(popover.classList.contains('open')).toBe(false);
+    const inlineQr = badge.shadowRoot.querySelector('.badge-qr-inline');
+    expect(inlineQr).toBeNull();
   });
 });
