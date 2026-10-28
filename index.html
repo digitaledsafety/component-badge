@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESM Web Component Template Demo</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #333;
+    }
+    .demo-section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+  <!-- Load component via ES module import in development -->
+  <script type="module" src="./src/define.js"></script>
+</head>
+<body>
+
+  <h1>Web Component Template Demo</h1>
+
+  <div class="demo-section">
+    <h2>1. Default Component</h2>
+    <hello-world></hello-world>
+  </div>
+
+  <div class="demo-section">
+    <h2>2. Component with Attribute</h2>
+    <hello-world name="Developer"></hello-world>
+  </div>
+
+  <div class="demo-section">
+    <h2>3. Dynamic Property Binding</h2>
+    <hello-world id="dynamic-hw" name="Interactive"></hello-world>
+    <div style="margin-top: 1rem;">
+      <label for="name-input">Change name: </label>
+      <input type="text" id="name-input" value="Interactive" placeholder="Type a name...">
+    </div>
+  </div>
+
+  <script type="module">
+    const element = document.getElementById('dynamic-hw');
+    const input = document.getElementById('name-input');
+
+    input.addEventListener('input', (e) => {
+      element.name = e.target.value;
+    });
+  </script>
+
+</body>
+</html>

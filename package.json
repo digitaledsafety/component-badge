@@ -1,0 +1,47 @@
+{
+  "name": "@template/web-component",
+  "version": "1.0.0",
+  "description": "A modern, production-ready Web Component template with best practices out-of-the-box.",
+  "type": "module",
+  "main": "./dist/hello-world.iife.js",
+  "module": "./dist/hello-world.js",
+  "exports": {
+    ".": {
+      "import": "./dist/hello-world.js",
+      "require": "./dist/hello-world.iife.js"
+    },
+    "./define": {
+      "import": "./dist/define.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --mode es && vite build --mode define",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src test",
+    "format": "prettier --write \"src/**/*.{js,css,html}\" \"test/**/*.js\" \"*.md\""
+  },
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "shadow-dom",
+    "template",
+    "vite"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "happy-dom": "^21.0.4",
+    "prettier": "^3.9.10",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
