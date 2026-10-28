@@ -3,62 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESM Web Component Template Demo</title>
+  <title>Attribution Badge Component Demo</title>
   <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      max-width: 800px;
+      max-width: 900px;
       margin: 2rem auto;
-      padding: 0 1rem;
-      color: #333;
+      padding: 0 1.5rem;
+      background-color: var(--bg);
+      color: var(--text);
     }
-    .demo-section {
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #64748b;
       margin-bottom: 2rem;
-      padding: 1rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
     }
-    input {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .demo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .demo-card h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      color: #334155;
+    }
+
+    .demo-preview {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: #f1f5f9;
+      border-radius: 8px;
+      min-height: 3rem;
+    }
+
+    .dark-preview {
+      background: #0f172a;
+    }
+
+    .code-block {
+      margin-top: 1rem;
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
     }
   </style>
-  <!-- Load component via ES module import in development -->
   <script type="module" src="./src/define.js"></script>
 </head>
 <body>
 
-  <h1>Web Component Template Demo</h1>
+  <h1>Attribution Badge Demo</h1>
+  <p class="subtitle">Interactive demonstration of the pill-based attribution badge web component.</p>
 
-  <div class="demo-section">
-    <h2>1. Default Component</h2>
-    <hello-world></hello-world>
-  </div>
+  <div class="demo-grid">
 
-  <div class="demo-section">
-    <h2>2. Component with Attribute</h2>
-    <hello-world name="Developer"></hello-world>
-  </div>
-
-  <div class="demo-section">
-    <h2>3. Dynamic Property Binding</h2>
-    <hello-world id="dynamic-hw" name="Interactive"></hello-world>
-    <div style="margin-top: 1rem;">
-      <label for="name-input">Change name: </label>
-      <input type="text" id="name-input" value="Interactive" placeholder="Type a name...">
+    <!-- 1. Basic Badges -->
+    <div class="demo-card">
+      <h3>1. Default & Text Customization</h3>
+      <div class="demo-preview">
+        <attribution-badge label="Acme Inc"></attribution-badge>
+        <attribution-badge prefix="Created by" label="Jane Doe"></attribution-badge>
+        <attribution-badge text="Built with ❤️ using Vite"></attribution-badge>
+      </div>
+      <pre class="code-block">&lt;attribution-badge label="Acme Inc"&gt;&lt;/attribution-badge&gt;
+&lt;attribution-badge prefix="Created by" label="Jane Doe"&gt;&lt;/attribution-badge&gt;
+&lt;attribution-badge text="Built with ❤️ using Vite"&gt;&lt;/attribution-badge&gt;</pre>
     </div>
+
+    <!-- 2. Clickable Links with QR Code Popover -->
+    <div class="demo-card">
+      <h3>2. Clickable Badges with QR Code</h3>
+      <div class="demo-preview">
+        <attribution-badge prefix="Powered by" label="GitHub" href="https://github.com"></attribution-badge>
+        <attribution-badge prefix="Created by" label="OpenAI" href="https://openai.com"></attribution-badge>
+      </div>
+      <pre class="code-block">&lt;attribution-badge prefix="Powered by" label="GitHub" href="https://github.com"&gt;&lt;/attribution-badge&gt;</pre>
+    </div>
+
+    <!-- 3. Themes -->
+    <div class="demo-card">
+      <h3>3. Preset Themes (Light, Dark, Brand)</h3>
+      <div class="demo-preview dark-preview">
+        <attribution-badge theme="light" label="Light Theme" href="https://example.com"></attribution-badge>
+        <attribution-badge theme="dark" label="Dark Theme" href="https://example.com"></attribution-badge>
+        <attribution-badge theme="brand" label="Brand Theme" href="https://example.com"></attribution-badge>
+      </div>
+      <pre class="code-block">&lt;attribution-badge theme="light" label="Light Theme" href="..."&gt;&lt;/attribution-badge&gt;
+&lt;attribution-badge theme="dark" label="Dark Theme" href="..."&gt;&lt;/attribution-badge&gt;
+&lt;attribution-badge theme="brand" label="Brand Theme" href="..."&gt;&lt;/attribution-badge&gt;</pre>
+    </div>
+
+    <!-- 4. Custom Colors -->
+    <div class="demo-card">
+      <h3>4. Custom Brand Colors</h3>
+      <div class="demo-preview">
+        <attribution-badge color="#0284c7" bg-color="#e0f2fe" prefix="Designed by" label="Tailwind" href="https://tailwindcss.com"></attribution-badge>
+        <attribution-badge color="#e11d48" bg-color="#ffe4e6" prefix="Sponsored by" label="Ruby" href="https://ruby-lang.org"></attribution-badge>
+      </div>
+      <pre class="code-block">&lt;attribution-badge color="#0284c7" bg-color="#e0f2fe" prefix="Designed by" label="Tailwind" href="..."&gt;&lt;/attribution-badge&gt;</pre>
+    </div>
+
+    <!-- 5. Logo Image and Slotted SVG Logo -->
+    <div class="demo-card">
+      <h3>5. Logos (Image & Slotted SVG)</h3>
+      <div class="demo-preview">
+        <attribution-badge logo="https://vitejs.dev/logo.svg" prefix="Powered by" label="Vite" href="https://vitejs.dev"></attribution-badge>
+        <attribution-badge prefix="Starred on" label="GitHub" href="https://github.com" color="#0f172a" bg-color="#ffffff">
+          <svg slot="logo" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </attribution-badge>
+      </div>
+      <pre class="code-block">&lt;attribution-badge logo="https://vitejs.dev/logo.svg" prefix="Powered by" label="Vite" href="..."&gt;&lt;/attribution-badge&gt;
+
+&lt;attribution-badge prefix="Starred on" label="GitHub" href="..."&gt;
+  &lt;svg slot="logo" ...&gt;&lt;/svg&gt;
+&lt;/attribution-badge&gt;</pre>
+    </div>
+
   </div>
-
-  <script type="module">
-    const element = document.getElementById('dynamic-hw');
-    const input = document.getElementById('name-input');
-
-    input.addEventListener('input', (e) => {
-      element.name = e.target.value;
-    });
-  </script>
 
 </body>
 </html>
