@@ -1,7 +1,7 @@
-import { HelloWorld } from './hello-world.js';
+import { AttributionBadge } from './attribution-badge.js';
 
-if (!customElements.get('hello-world')) {
-  customElements.define('hello-world', HelloWorld);
+if (!customElements.get('attribution-badge')) {
+  customElements.define('attribution-badge', AttributionBadge);
 }
 
-export { HelloWorld };
+export { AttributionBadge };

@@ -1,4 +1,4 @@
-import { HelloWorld } from './hello-world.js';
+import { AttributionBadge } from './attribution-badge.js';
 import './define.js';
 
-export { HelloWorld };
+export { AttributionBadge };

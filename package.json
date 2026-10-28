@@ -1,14 +1,14 @@
 {
   "name": "@template/web-component",
   "version": "1.0.0",
-  "description": "A modern, production-ready Web Component template with best practices out-of-the-box.",
+  "description": "A modern, production-ready Web Component for attribution badges with logo, QR code, and custom styling.",
   "type": "module",
-  "main": "./dist/hello-world.iife.js",
-  "module": "./dist/hello-world.js",
+  "main": "./dist/attribution-badge.iife.js",
+  "module": "./dist/attribution-badge.js",
   "exports": {
     ".": {
-      "import": "./dist/hello-world.js",
-      "require": "./dist/hello-world.iife.js"
+      "import": "./dist/attribution-badge.js",
+      "require": "./dist/attribution-badge.iife.js"
     },
     "./define": {
       "import": "./dist/define.js"
@@ -29,9 +29,10 @@
   },
   "keywords": [
     "web-components",
+    "attribution-badge",
     "custom-elements",
     "shadow-dom",
-    "template",
+    "qr-code",
     "vite"
   ],
   "author": "",

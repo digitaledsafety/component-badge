@@ -10,16 +10,16 @@ export default defineConfig(({ mode }) => {
         entry: mode === 'define'
           ? resolve(import.meta.dirname, 'src/define.js')
           : resolve(import.meta.dirname, 'src/index.js'),
-        name: 'HelloWorldComponent',
+        name: 'AttributionBadge',
         formats: mode === 'define' ? ['es'] : ['es', 'iife'],
         fileName: (format) => {
           if (mode === 'define') {
             return 'define.js';
           }
           if (format === 'es') {
-            return 'hello-world.js';
+            return 'attribution-badge.js';
           }
-          return 'hello-world.iife.js';
+          return 'attribution-badge.iife.js';
         },
       },
     },
