@@ -20,6 +20,7 @@ styles.replaceSync(`
     font-family: var(--badge-font-family);
     font-size: var(--badge-font-size);
     box-sizing: border-box;
+    line-height: 1;
   }
 
   :host([theme="dark"]) {
@@ -47,6 +48,7 @@ styles.replaceSync(`
   .badge-container {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: var(--badge-gap);
     background-color: var(--badge-bg);
     color: var(--badge-color);
@@ -56,7 +58,7 @@ styles.replaceSync(`
     box-shadow: var(--badge-shadow);
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    line-height: 1.25;
+    line-height: 1;
     user-select: none;
     position: relative;
   }
@@ -76,7 +78,7 @@ styles.replaceSync(`
   }
 
   .badge-logo-wrapper {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 1.25rem;
@@ -89,12 +91,14 @@ styles.replaceSync(`
     height: 100%;
     object-fit: contain;
     border-radius: 50%;
+    display: block;
   }
 
   ::slotted([slot="logo"]) {
     width: 1.25rem;
     height: 1.25rem;
     object-fit: contain;
+    display: block;
   }
 
   .badge-content {
@@ -102,15 +106,20 @@ styles.replaceSync(`
     align-items: center;
     gap: 0.25rem;
     white-space: nowrap;
+    line-height: 1;
   }
 
   .badge-prefix {
     opacity: 0.8;
     font-weight: 400;
+    line-height: 1;
+    display: inline-block;
   }
 
   .badge-label {
     font-weight: 600;
+    line-height: 1;
+    display: inline-block;
   }
 
   .qr-toggle-btn {
@@ -121,12 +130,15 @@ styles.replaceSync(`
     border: none;
     color: currentColor;
     opacity: 0.7;
-    padding: 0.125rem;
+    padding: 0;
     margin-left: 0.125rem;
     border-radius: 50%;
     cursor: pointer;
     transition: opacity 0.2s ease, transform 0.2s ease;
     flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
   }
 
   .qr-toggle-btn:hover {
@@ -142,6 +154,7 @@ styles.replaceSync(`
     width: 1rem;
     height: 1rem;
     fill: currentColor;
+    display: block;
   }
 
   /* QR Popover Modal / Tooltip */
@@ -182,6 +195,7 @@ styles.replaceSync(`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: 1.25;
   }
 
   .qr-popover-arrow {
